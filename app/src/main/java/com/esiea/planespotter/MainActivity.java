@@ -23,6 +23,10 @@ public class MainActivity extends Activity {
         // improve performance if you know that changes
         // in content do not change the layout size
         // of the RecyclerView
+        showList();
+    }
+
+    private void showList() {
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
