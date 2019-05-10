@@ -1,15 +1,22 @@
 package com.esiea.planespotter;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.List;
 
-public class MainActivity extends Activity implements RestApiOpenSky{
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class MainActivity extends Activity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -23,24 +30,45 @@ public class MainActivity extends Activity implements RestApiOpenSky{
         // improve performance if you know that changes
         // in content do not change the layout size
         // of the RecyclerView
-        showList();
+        downloadData();
     }
 
-    private void showList() {
+    private void downloadData() {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(RestApiOpenSky.ENDPOINT)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        RestApiOpenSky restApiOpenSky = retrofit.create(RestApiOpenSky.class);
+        Call<Avions> call = restApiOpenSky.getListPlane("47.9659","1.2744","49.3994","3.5044" );
+
+        call.enqueue(new Callback<Avions>() {
+            @Override
+            public void onResponse(Call<Avions> call, Response<Avions> response) {
+
+                Avions av = response.body();
+                showList(av.getState());
+            }
+
+            @Override
+            public void onFailure(Call<Avions> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void showList(List<List<String>> state) {
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        List<String> input = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            input.add("Plane" + i);
-        }// define an adapter
-        mAdapter = new MyAdapter(input);
-        recyclerView.setAdapter(mAdapter);
-    }
 
-    @Override
-    public void getData() {
-        //TODO recuperer les données
+        // défini l'adaptateur
+        mAdapter = new MyAdapter(state);
+        recyclerView.setAdapter(mAdapter);
     }
 }
