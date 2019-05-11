@@ -1,4 +1,4 @@
-package com.esiea.planespotter;
+package com.esiea.airqual;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

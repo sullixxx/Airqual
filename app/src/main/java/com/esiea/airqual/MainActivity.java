@@ -1,4 +1,4 @@
-package com.esiea.planespotter;
+package com.esiea.airqual;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -38,23 +38,23 @@ public class MainActivity extends Activity {
                 .setLenient()
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RestApiOpenSky.ENDPOINT)
+                .baseUrl(RestApiAirVisual.ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        RestApiOpenSky restApiOpenSky = retrofit.create(RestApiOpenSky.class);
-        Call<Avions> call = restApiOpenSky.getListPlane("47.9659","1.2744","49.3994","3.5044" );
+        RestApiAirVisual restApiOpenSky = retrofit.create(RestApiAirVisual.class);
+        Call<Cities> call = restApiOpenSky.getListPlane("France","xYLsavXgCimFG3ZMN");
 
-        call.enqueue(new Callback<Avions>() {
+        call.enqueue(new Callback<Cities>() {
             @Override
-            public void onResponse(Call<Avions> call, Response<Avions> response) {
+            public void onResponse(Call<Cities> call, Response<Cities> response) {
 
-                Avions av = response.body();
-                showList(av.getState());
+                Cities citiesOfFrance = response.body();
+                showList(citiesOfFrance.getState());
             }
 
             @Override
-            public void onFailure(Call<Avions> call, Throwable t) {
+            public void onFailure(Call<Cities> call, Throwable t) {
 
             }
         });
