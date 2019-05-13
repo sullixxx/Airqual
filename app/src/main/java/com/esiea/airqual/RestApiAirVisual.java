@@ -13,7 +13,7 @@ public interface RestApiAirVisual {
     //@Headers("API_KEY ")
     //api.airvisual.com/v2/countries?key=xYLsavXgCimFG3ZMN
 
-    @GET("states/all")
+    @GET("api.airvisual.com/v2/countries?")
     Call<Cities> getListPlane(@Query("country") String country, @Query("key") String apiKey);
 
 }

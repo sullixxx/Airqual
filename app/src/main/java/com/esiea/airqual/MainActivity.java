@@ -1,5 +1,7 @@
 package com.esiea.airqual;
 
+import android.content.Context;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +17,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import android.location.Location;
 
 public class MainActivity extends Activity {
     private RecyclerView recyclerView;
@@ -42,8 +46,9 @@ public class MainActivity extends Activity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        RestApiAirVisual restApiOpenSky = retrofit.create(RestApiAirVisual.class);
-        Call<Cities> call = restApiOpenSky.getListPlane("France","xYLsavXgCimFG3ZMN");
+        RestApiAirVisual restApiAirVisual = retrofit.create(RestApiAirVisual.class);
+
+        Call<Cities> call = restApiAirVisual.getListPlane("France","xYLsavXgCimFG3ZMN");
 
         call.enqueue(new Callback<Cities>() {
             @Override
