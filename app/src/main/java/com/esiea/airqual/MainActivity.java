@@ -57,7 +57,8 @@ public class MainActivity extends Activity {
             public void onResponse(Call<StatesInCountry> call, Response<StatesInCountry> response) {
                 Log.d("calloutApi","sucess");
                 StatesInCountry statesOfFrance = response.body();
-                showList(statesOfFrance.getListStates());
+
+                showList(statesOfFrance.getListStatesString());
             }
 
             @Override
@@ -69,7 +70,7 @@ public class MainActivity extends Activity {
 
     }
 
-    private void showList(List<List<String>> state) {
+    private void showList(List<String> state) {
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
