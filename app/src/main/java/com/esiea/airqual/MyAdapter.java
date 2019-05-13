@@ -52,12 +52,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final List<String> avion = values.get(position);
-        holder.txtHeader.setText(avion.get(3));
+        final List<String> content = values.get(position);
+        holder.txtHeader.setText(content.get(3));
         holder.txtHeader.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO rajouter - aller dans l'activité avec les details de l'avion;
+                //TODO rajouter - aller dans l'activité avec les details;
                 notifyDataSetChanged();//notifier quand un élément est supprimé
             }
         });

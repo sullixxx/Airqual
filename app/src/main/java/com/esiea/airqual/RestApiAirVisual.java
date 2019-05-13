@@ -2,18 +2,23 @@ package com.esiea.airqual;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.Query;
 
 public interface RestApiAirVisual {
 
-    public static final String ENDPOINT = "api.airvisual.com/v2/countries?";
+    public static final String ENDPOINT = "https://api.airvisual.com/v2/";
 
-
-    //@Headers("API_KEY ")
     //api.airvisual.com/v2/countries?key=xYLsavXgCimFG3ZMN
 
-    @GET("api.airvisual.com/v2/countries?")
-    Call<Cities> getListPlane(@Query("country") String country, @Query("key") String apiKey);
+    @GET("city?")
+    Call<City> getCityInfo(@Query("city") String city, @Query("state") String state, @Query("country") String country, @Query("key") String apiKey);
 
+    @GET("nearest_city?")
+    Call<City> getNearestCity(@Query("lat") double latitude, @Query("lon") double longitude, @Query("key") String apiKey);
+
+    @GET("states?")
+    Call<StatesInCountry> getStatesInCountry(@Query("country") String country, @Query("key") String apiKey );
+
+    @GET("cities?")
+    Call<Cities> getCitiesInState(@Query("state") String state, @Query("country") String country, @Query("key") String apiKey);
 }

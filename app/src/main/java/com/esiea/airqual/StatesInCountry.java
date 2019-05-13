@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Cities {
+public class StatesInCountry {
 
     @SerializedName("status")
     @Expose
@@ -13,12 +13,11 @@ public class Cities {
 
     @SerializedName("data")
     @Expose
-    private List<String> listCities = null;
+    private List<State> listStates = null;
 
-    public List<String> getListStates() {
-        return listCities;
+    public List<State> getListStates() {
+        return listStates;
     }
-
     public String getStatus() {
         return status;
     }

@@ -5,21 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Cities {
+public class City {
 
     @SerializedName("status")
     @Expose
     private String status;
-
     @SerializedName("data")
     @Expose
-    private List<String> listCities = null;
+    private Data data;
 
-    public List<String> getListStates() {
-        return listCities;
-    }
-
-    public String getStatus() {
-        return status;
-    }
 }
