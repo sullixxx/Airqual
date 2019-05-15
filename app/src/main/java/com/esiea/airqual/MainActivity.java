@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,21 +40,18 @@ public class MainActivity extends Activity {
                 .setLenient()
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.airvisual.com/v2/")
+                .baseUrl(RestApiAirVisual.BASEURL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         RestApiAirVisual restApiAirVisual = retrofit.create(RestApiAirVisual.class);
 
-        Call<StatesInCountry> call = restApiAirVisual.getStatesInCountry("FRANCE","xYLsavXgCimFG3ZMN");
-
-        //Call<StatesInCountry> call = restApiAirVisual.getStatesInCountry("FRANCE","xYLsavXgCimFG3ZMN");
-        //Call<Cities> call = restApiAirVisual.getCitiesInState("Ile-de-France","france","xYLsavXgCimFG3ZMN");
+        Call<StatesInCountry> call = restApiAirVisual.getStatesInCountry("FRANCE",RestApiAirVisual.APIKEY);
 
         call.enqueue(new Callback<StatesInCountry>() {
             @Override
             public void onResponse(Call<StatesInCountry> call, Response<StatesInCountry> response) {
-                Log.d("calloutApi","sucess");
+                Log.d("callbackApi","sucess");
                 StatesInCountry statesOfFrance = response.body();
 
                 showList(statesOfFrance.getListStatesString());
@@ -63,7 +59,24 @@ public class MainActivity extends Activity {
 
             @Override
             public void onFailure(Call<StatesInCountry> call, Throwable t) {
-                Log.d("calloutApi","failed");
+                Log.d("callbackApi","failed");
+                t.printStackTrace();
+            }
+        });
+
+        Call<Cities> call2 = restApiAirVisual.getCitiesInState("Ile-de-France","FRANCE",RestApiAirVisual.APIKEY);
+
+        call2.enqueue(new Callback<Cities>() {
+            @Override
+            public void onResponse(Call<Cities> call2, Response<Cities> response2) {
+                Log.d("callback2Api","sucess");
+                Cities citiesOfState = response2.body();
+                //TODO showList(...) in a new activity;
+            }
+
+            @Override
+            public void onFailure(Call<Cities> call2, Throwable t) {
+                Log.d("callback2Api","failed");
                 t.printStackTrace();
             }
         });
@@ -76,7 +89,7 @@ public class MainActivity extends Activity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        // défini l'adaptateur
+        // définit l'adaptateur
         mAdapter = new MyAdapter(state);
         recyclerView.setAdapter(mAdapter);
     }

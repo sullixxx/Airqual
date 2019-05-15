@@ -14,4 +14,11 @@ public class City {
     @Expose
     private Data data;
 
+    public Data getData() {
+        return data;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 }

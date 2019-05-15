@@ -17,4 +17,12 @@ public class Data {
     @SerializedName("current")
     @Expose
     private Current current;
+
+    public String getCity() {
+        return city;
+    }
+
+    public Current getCurrent() {
+        return current;
+    }
 }

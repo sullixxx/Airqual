@@ -6,7 +6,8 @@ import retrofit2.http.Query;
 
 public interface RestApiAirVisual {
 
-    public static final String ENDPOINT = "https://api.airvisual.com/v2/";
+    public static final String BASEURL = "https://api.airvisual.com/v2/";
+    public static final String APIKEY = "xYLsavXgCimFG3ZMN";
 
     //api.airvisual.com/v2/countries?key=xYLsavXgCimFG3ZMN
 
