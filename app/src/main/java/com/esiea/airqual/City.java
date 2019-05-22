@@ -7,6 +7,8 @@ import java.util.List;
 
 public class City {
 
+    private String city;
+
     @SerializedName("status")
     @Expose
     private String status;
@@ -16,6 +18,10 @@ public class City {
 
     public Data getData() {
         return data;
+    }
+
+    public String getCity() {
+        return city;
     }
 
     public String getStatus() {

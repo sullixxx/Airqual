@@ -14,15 +14,16 @@ public class Cities {
 
     @SerializedName("data")
     @Expose
-    private List<City> listCities = null;
+    private List<City> listCities;
 
     public List<String> getListCities() {
-        List<String> listStatesString = new ArrayList<>(listCities.size());
+        List<String> listCitiesString = new ArrayList<>(listCities.size());
         for (City s : listCities) {
-            listStatesString.add(s.getData().getCity());
+            listCitiesString.add(s.getCity());
         }
-        return listStatesString;
+        return listCitiesString;
     }
+
 
     public String getStatus() {
         return status;

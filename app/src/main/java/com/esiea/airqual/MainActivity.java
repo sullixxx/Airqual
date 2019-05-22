@@ -1,8 +1,6 @@
 package com.esiea.airqual;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -21,10 +19,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
 public class MainActivity extends Activity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private City nearestCity;
 
 
     @Override
@@ -32,10 +32,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-         downloadData();
+         downloadData("FRANCE");
     }
 
-    private void downloadData() {
+    private void downloadData(String country) {
+
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -46,51 +47,51 @@ public class MainActivity extends Activity {
 
         RestApiAirVisual restApiAirVisual = retrofit.create(RestApiAirVisual.class);
 
-        Call<StatesInCountry> call = restApiAirVisual.getStatesInCountry("FRANCE",RestApiAirVisual.APIKEY);
-
-        call.enqueue(new Callback<StatesInCountry>() {
+        Call<City> call1 = restApiAirVisual.getNearestCity(RestApiAirVisual.APIKEY);
+        call1.enqueue(new Callback<City>() {
             @Override
-            public void onResponse(Call<StatesInCountry> call, Response<StatesInCountry> response) {
-                Log.d("callbackApi","sucess");
-                StatesInCountry statesOfFrance = response.body();
-
-                showList(statesOfFrance.getListStatesString());
+            public void onResponse(Call<City> call, Response<City> response) {
+                if (response.isSuccessful()) {
+                    Log.d("callbackApi1","success");
+                    nearestCity = response.body();
+                }
             }
 
             @Override
-            public void onFailure(Call<StatesInCountry> call, Throwable t) {
-                Log.d("callbackApi","failed");
+            public void onFailure(Call<City> call, Throwable t) {
+                Log.d("callbackApi1","failed");
                 t.printStackTrace();
             }
         });
 
-        Call<Cities> call2 = restApiAirVisual.getCitiesInState("Ile-de-France","FRANCE",RestApiAirVisual.APIKEY);
-
-        call2.enqueue(new Callback<Cities>() {
+        Call<StatesInCountry> call2 = restApiAirVisual.getStatesInCountry(country,RestApiAirVisual.APIKEY);
+        call2.enqueue(new Callback<StatesInCountry>() {
             @Override
-            public void onResponse(Call<Cities> call2, Response<Cities> response2) {
-                Log.d("callback2Api","sucess");
-                Cities citiesOfState = response2.body();
-                //TODO showList(...) in a new activity;
+            public void onResponse(Call<StatesInCountry> call, Response<StatesInCountry> response) {
+                if (response.isSuccessful()) {
+                    Log.d("callbackApi2","success");
+                    StatesInCountry statesOfFrance = response.body();
+                    showList(statesOfFrance.getListStatesString());
+                }
             }
 
             @Override
-            public void onFailure(Call<Cities> call2, Throwable t) {
-                Log.d("callback2Api","failed");
+            public void onFailure(Call<StatesInCountry> call, Throwable t) {
+                Log.d("callbackApi2","failed");
                 t.printStackTrace();
             }
         });
 
     }
 
-    private void showList(List<String> state) {
+    private void showList(List<String> listToShow) {
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         // définit l'adaptateur
-        mAdapter = new MyAdapter(state);
+        mAdapter = new MyAdapter(listToShow,1);
         recyclerView.setAdapter(mAdapter);
     }
 

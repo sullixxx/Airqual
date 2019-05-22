@@ -7,7 +7,7 @@ public class Data {
 
     @SerializedName("city")
     @Expose
-    private String city = null;
+    private String city;
     @SerializedName("state")
     @Expose
     private String state;
@@ -24,5 +24,13 @@ public class Data {
 
     public Current getCurrent() {
         return current;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getState() {
+        return state;
     }
 }

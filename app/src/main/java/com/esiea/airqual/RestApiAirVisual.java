@@ -15,7 +15,7 @@ public interface RestApiAirVisual {
     Call<City> getCityInfo(@Query("city") String city, @Query("state") String state, @Query("country") String country, @Query("key") String apiKey);
 
     @GET("nearest_city?")
-    Call<City> getNearestCity(@Query("lat") double latitude, @Query("lon") double longitude, @Query("key") String apiKey);
+    Call<City> getNearestCity(@Query("key") String apiKey);
 
     @GET("states?")
     Call<StatesInCountry> getStatesInCountry(@Query("country") String country, @Query("key") String apiKey );

@@ -17,6 +17,7 @@ public class StatesInCountry {
     @Expose
     private List<State> listStates;
 
+
     public List<State> getListStates() {
         return listStates;
     }
