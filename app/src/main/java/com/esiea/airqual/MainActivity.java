@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private City nearestCity;
+    private RestApiAirVisual restApiAirVisual;
 
 
     @Override
@@ -45,7 +46,7 @@ public class MainActivity extends Activity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        RestApiAirVisual restApiAirVisual = retrofit.create(RestApiAirVisual.class);
+        restApiAirVisual = retrofit.create(RestApiAirVisual.class);
 
         Call<City> call1 = restApiAirVisual.getNearestCity(RestApiAirVisual.APIKEY);
         call1.enqueue(new Callback<City>() {
@@ -54,6 +55,7 @@ public class MainActivity extends Activity {
                 if (response.isSuccessful()) {
                     Log.d("callbackApi1","success");
                     nearestCity = response.body();
+                    makeSecondApiCall();
                 }
             }
 
@@ -63,8 +65,10 @@ public class MainActivity extends Activity {
                 t.printStackTrace();
             }
         });
+    }
 
-        Call<StatesInCountry> call2 = restApiAirVisual.getStatesInCountry(country,RestApiAirVisual.APIKEY);
+    private void makeSecondApiCall() {
+        Call<StatesInCountry> call2 = restApiAirVisual.getStatesInCountry(nearestCity.getCity(),RestApiAirVisual.APIKEY);
         call2.enqueue(new Callback<StatesInCountry>() {
             @Override
             public void onResponse(Call<StatesInCountry> call, Response<StatesInCountry> response) {
@@ -81,7 +85,6 @@ public class MainActivity extends Activity {
                 t.printStackTrace();
             }
         });
-
     }
 
     private void showList(List<String> listToShow) {

@@ -63,7 +63,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.txtHeader.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO ALLER DANS L'ACTIVITÉ AVEC LES VILLES DE LA REGION SELECTIONNÉE
                 if(currentActivity == 1){
                     Toast myToast = (Toast) Toast.makeText(v.getContext(),content,Toast.LENGTH_SHORT);
                     myToast.show();
@@ -78,7 +77,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             }
         });
 
-        //holder.txtFooter.setText("XXX: ");
+        holder.txtFooter.setText("Country: ");
     }
 
 
@@ -86,10 +85,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return values.size();
-    }
-
-    public void GotoCitiesListActivity(String selectedContent){
-
     }
 
 }
