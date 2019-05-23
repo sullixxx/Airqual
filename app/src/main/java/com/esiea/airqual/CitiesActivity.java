@@ -24,7 +24,9 @@ public class CitiesActivity extends Activity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+
     private String state;
+    private String country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class CitiesActivity extends Activity {
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view_2);
         Intent intent = getIntent();
         state = intent.getStringExtra("state");
-        String country = retrieveCountry();
+        country = retrieveCountry();
         downloadData(country);
 
     }
@@ -49,7 +51,7 @@ public class CitiesActivity extends Activity {
 
         RestApiAirVisual restApiAirVisual = retrofit.create(RestApiAirVisual.class);
 
-        Call<Cities> call = restApiAirVisual.getCitiesInState("Ile-de-France","FRANCE",RestApiAirVisual.APIKEY);
+        Call<Cities> call = restApiAirVisual.getCitiesInState(state,country,RestApiAirVisual.APIKEY);
 
         call.enqueue(new Callback<Cities>() {
             @Override
@@ -77,7 +79,7 @@ public class CitiesActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
         // définit l'adaptateur
-        mAdapter = new CitiesAdapter(listToShow);
+        mAdapter = new CitiesAdapter(listToShow,state);
         recyclerView.setAdapter(mAdapter);
     }
 

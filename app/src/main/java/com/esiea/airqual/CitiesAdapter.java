@@ -15,6 +15,7 @@ import android.widget.Toast;
 public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder> {
 
     private List<City> values;
+    private String stateofdataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -37,8 +38,9 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
 
     // Provide a suitable constructor (depends on the kind of dataset)
 
-    public CitiesAdapter(List<City> myDataset) {
+    public CitiesAdapter(List<City> myDataset,String state) {
         values = myDataset;
+        stateofdataset = state;
     }
 
     // Create new views (invoked by the layout manager)
@@ -65,7 +67,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
 
                     Toast myToast = (Toast) Toast.makeText(v.getContext(),content.getCity(),Toast.LENGTH_SHORT);
                     myToast.show();
-
+                    //TODO aller dans l'activité de détails
                     Intent intent = new Intent(v.getContext(), CitiesActivity.class);
                     intent.putExtra("state", content.getCity());
                     v.getContext().startActivity(intent);
@@ -74,7 +76,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
             }
         });
 
-        holder.txtFooter.setText("State: " + content.getData().getState());
+        holder.txtFooter.setText("State: " + stateofdataset);
     }
 
 
