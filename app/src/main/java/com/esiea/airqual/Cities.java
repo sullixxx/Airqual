@@ -16,7 +16,11 @@ public class Cities {
     @Expose
     private List<City> listCities;
 
-    public List<String> getListCities() {
+    public List<City> getListCities() {
+        return listCities;
+    }
+
+    public List<String> getListCitiesString() {
         List<String> listCitiesString = new ArrayList<>(listCities.size());
         for (City s : listCities) {
             listCitiesString.add(s.getCity());

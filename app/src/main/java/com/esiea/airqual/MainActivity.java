@@ -2,11 +2,13 @@ package com.esiea.airqual;
 
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-         downloadData("FRANCE");
+        downloadData("FRANCE");
     }
 
     private void downloadData(String country) {
@@ -68,14 +70,16 @@ public class MainActivity extends Activity {
     }
 
     private void makeSecondApiCall() {
-        Call<StatesInCountry> call2 = restApiAirVisual.getStatesInCountry(nearestCity.getCity(),RestApiAirVisual.APIKEY);
+        final String country = nearestCity.getData().getCountry();
+        Call<StatesInCountry> call2 = restApiAirVisual.getStatesInCountry(country,RestApiAirVisual.APIKEY);
         call2.enqueue(new Callback<StatesInCountry>() {
             @Override
             public void onResponse(Call<StatesInCountry> call, Response<StatesInCountry> response) {
                 if (response.isSuccessful()) {
                     Log.d("callbackApi2","success");
                     StatesInCountry statesOfFrance = response.body();
-                    showList(statesOfFrance.getListStatesString());
+                    showList(statesOfFrance.getListStates());
+                    saveCountry(country);
                 }
             }
 
@@ -87,14 +91,23 @@ public class MainActivity extends Activity {
         });
     }
 
-    private void showList(List<String> listToShow) {
+    private void saveCountry(String country){
+        SharedPreferences sharedPref = getSharedPreferences("DataShared",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("Country",country);
+        editor.commit();
+
+        Toast.makeText(this, "Your country has been saved : "+country , Toast.LENGTH_SHORT).show();
+    }
+
+    private void showList(List<State> listToShow) {
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         // définit l'adaptateur
-        mAdapter = new MyAdapter(listToShow,1);
+        mAdapter = new StateAdapter(listToShow);
         recyclerView.setAdapter(mAdapter);
     }
 
