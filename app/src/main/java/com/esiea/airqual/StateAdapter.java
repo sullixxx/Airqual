@@ -67,14 +67,11 @@ public class StateAdapter extends RecyclerView.Adapter<StateAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
 
-                    Toast myToast = (Toast) Toast.makeText(v.getContext(),content.getState(),Toast.LENGTH_SHORT);
-                    myToast.show();
-
                     Intent intent = new Intent(v.getContext(), CitiesActivity.class);
                     intent.putExtra("state", content.getState());
                     v.getContext().startActivity(intent);
 
-                notifyDataSetChanged();//notifier quand un élément est supprimé
+                notifyDataSetChanged();//notifier quand un élément est modifié
             }
         });
 

@@ -19,4 +19,21 @@ class Pollution {
     @SerializedName("maincn")
     @Expose
     private String maincn;
+
+    public String getTs() {
+        return ts;
+    }
+
+    public Integer getAqius() {
+        return aqius;
+    }
+
+    public String getMainus() {
+        return mainus;
+    }
+
+    public String getMaincn() {
+        return maincn;
+    }
+
 }

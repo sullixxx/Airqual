@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 class Weather {
+
     @SerializedName("ts")
     @Expose
     private String ts;
@@ -25,4 +26,33 @@ class Weather {
     @SerializedName("ws")
     @Expose
     private Double ws;
+
+
+    public String getTs() {
+        return ts;
+    }
+
+    public Integer getHu() {
+        return hu;
+    }
+
+    public String getIc() {
+        return ic;
+    }
+
+    public Integer getPr() {
+        return pr;
+    }
+
+    public Integer getTp() {
+        return tp;
+    }
+
+    public Integer getWd() {
+        return wd;
+    }
+
+    public Double getWs() {
+        return ws;
+    }
 }

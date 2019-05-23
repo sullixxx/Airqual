@@ -35,10 +35,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        downloadData("FRANCE");
+        downloadData();
     }
 
-    private void downloadData(String country) {
+    private void downloadData() {
 
         Gson gson = new GsonBuilder()
                 .setLenient()

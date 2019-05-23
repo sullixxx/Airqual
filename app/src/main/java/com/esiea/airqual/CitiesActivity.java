@@ -36,11 +36,11 @@ public class CitiesActivity extends Activity {
         Intent intent = getIntent();
         state = intent.getStringExtra("state");
         country = retrieveCountry();
-        downloadData(country);
+        downloadData();
 
     }
 
-    private void downloadData(String country) {
+    private void downloadData() {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -64,7 +64,7 @@ public class CitiesActivity extends Activity {
             }
 
             @Override
-            public void onFailure(Call<Cities> call2, Throwable t) {
+            public void onFailure(Call<Cities> call, Throwable t) {
                 Log.d("callback2Api","failed");
                 t.printStackTrace();
             }
@@ -79,7 +79,7 @@ public class CitiesActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
         // définit l'adaptateur
-        mAdapter = new CitiesAdapter(listToShow,state);
+        mAdapter = new CitiesAdapter(listToShow,state,country);
         recyclerView.setAdapter(mAdapter);
     }
 

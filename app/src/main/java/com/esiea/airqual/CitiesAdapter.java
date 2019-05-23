@@ -3,6 +3,7 @@ package com.esiea.airqual;
 import java.util.List;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder> {
 
     private List<City> values;
     private String stateofdataset;
+    private String countryofdataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -38,9 +39,10 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
 
     // Provide a suitable constructor (depends on the kind of dataset)
 
-    public CitiesAdapter(List<City> myDataset,String state) {
+    public CitiesAdapter(List<City> myDataset,String state,String country) {
         values = myDataset;
         stateofdataset = state;
+        countryofdataset = country;
     }
 
     // Create new views (invoked by the layout manager)
@@ -65,14 +67,16 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
             @Override
             public void onClick(View v) {
 
-                    Toast myToast = (Toast) Toast.makeText(v.getContext(),content.getCity(),Toast.LENGTH_SHORT);
-                    myToast.show();
-                    //TODO aller dans l'activité de détails
-                    Intent intent = new Intent(v.getContext(), CitiesActivity.class);
-                    intent.putExtra("state", content.getCity());
-                    v.getContext().startActivity(intent);
+            //TODO aller dans l'activité de détails
+            Intent intent = new Intent(v.getContext(), DetailActivity.class);
+             Bundle extras = new Bundle();
+            extras.putString("city", content.getCity());
+            extras.putString("state", stateofdataset);
+            extras.putString("country", countryofdataset);
+            intent.putExtras(extras);
+            v.getContext().startActivity(intent);
 
-                notifyDataSetChanged();//notifier quand un élément est supprimé
+            notifyDataSetChanged();//notifier quand un élément est supprimé
             }
         });
 

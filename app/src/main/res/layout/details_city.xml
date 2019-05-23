@@ -1,7 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent">
+
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+        android:id="@+id/gauge2"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+
+        android:paddingBottom="10dp"
+        app:gaugeStartValue="0"
+        app:gaugeEndValue="500"
+        app:gaugePointEndColor="#9C27B0"
+
+        app:gaugePointStartColor="#9C27B0"
+        app:gaugeStartAngle="135"
+        app:gaugeSweepAngle="270"
+        app:gaugeStrokeCap="ROUND"
+        app:gaugeStrokeColor="#D0808181"
+        app:gaugeStrokeWidth="10dp"
+
+
+        app:layout_constraintBottom_toTopOf="@+id/weather_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/today_air_quality"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_hu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="HUMIDITY"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tp" />
+
+    <TextView
+        android:id="@+id/tv_ws"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Wind"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_pr" />
+
+    <TextView
+        android:id="@+id/tv_pr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="PRESSION"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_hu" />
+
+    <TextView
+        android:id="@+id/tv_tp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="TEMPERATURE"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_icon" />
+
+    <TextView
+        android:id="@+id/tv_aqius"
+        android:layout_width="79dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="AQI"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/gauge2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gauge2" />
+
+    <ImageView
+        android:id="@+id/weather_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="200dp"
+        android:contentDescription="weather icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@mipmap/pollen_launcher_round" />
+
+
+</android.support.constraint.ConstraintLayout>
