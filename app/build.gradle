@@ -32,4 +32,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.4'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.android.support:cardview-v7:28.0.0'
 }

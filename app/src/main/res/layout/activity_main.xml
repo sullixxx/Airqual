@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_marginTop="0dp"
+        android:background="#F5F3F2F2"
         android:scrollbars="vertical" />
 
 </RelativeLayout>

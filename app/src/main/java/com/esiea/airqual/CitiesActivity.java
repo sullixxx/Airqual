@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -87,9 +86,6 @@ public class CitiesActivity extends Activity {
         final String DEFAULT = "FRANCE";
         SharedPreferences sharedPreferences = getSharedPreferences("DataShared", MODE_PRIVATE);
         String country = sharedPreferences.getString("Country",DEFAULT);
-        if(!country.equals("USA")){
-            Toast.makeText(this,"loading details success",Toast.LENGTH_SHORT).show();
-        }
         return country;
     }
 

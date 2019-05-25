@@ -1,19 +1,15 @@
 package com.esiea.airqual;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,7 +58,6 @@ public class DetailActivity extends Activity {
             public void onResponse(Call<City> call, Response<City> response) {
                 Log.d("callback4ApiActivitycities","success");
                 selectedCity = response.body();
-
                 if (selectedCity != null) {
                     showCityDetail();
                 }
@@ -79,8 +74,6 @@ public class DetailActivity extends Activity {
 
     private void showCityDetail() {
 
-
-        //ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBar2);
         CustomGauge gauge2 = findViewById(R.id.gauge2);
         TextView aqius = (TextView)findViewById(R.id.tv_aqius);
         TextView temperature = (TextView)findViewById(R.id.tv_tp);
@@ -96,27 +89,32 @@ public class DetailActivity extends Activity {
                 .into(imageView);
 
         int aqi = selectedCity.getData().getCurrent().pollution.getAqius();
-        aqius.setText(Integer.toString(aqi));
+        aqius.setText(Integer.toString(aqi)+" / 500");
         temperature.setText("TEMPERATURE : " + Integer.toString(selectedCity.getData().getCurrent().weather.getTp()) + "°");
         humidity.setText("HUMIDITY : " + Integer.toString(selectedCity.getData().getCurrent().weather.getHu()) + " %");
         pression.setText("PRESSION : " + Integer.toString(selectedCity.getData().getCurrent().weather.getPr()) + " hPa");
-        wind.setText("WIND : " + Integer.toString(selectedCity.getData().getCurrent().weather.getWd()) + " m/s" + Integer.toString(selectedCity.getData().getCurrent().weather.getWd()));
-        gauge2.setValue(aqi);
+        wind.setText("WIND : " + String.format ("%.2f", selectedCity.getData().getCurrent().weather.getWs()) + " m/s - " + Integer.toString(selectedCity.getData().getCurrent().weather.getWd())+"°");
+
         if(aqi<=50){
-            //TODO colors
+            gauge2.setPointStartColor(ContextCompat.getColor(getApplicationContext(),R.color.vert ));
+            gauge2.setPointEndColor(ContextCompat.getColor(getApplicationContext(),R.color.vert ));
         }else if(aqi>50 && aqi<=100){
-            //gauge2.setStrokeColor(Integer.parseInt("0x32cd32", 16));
+            gauge2.setPointStartColor(ContextCompat.getColor(getApplicationContext(),R.color.jaune ));
+            gauge2.setPointEndColor(ContextCompat.getColor(getApplicationContext(),R.color.jaune ));
         }else if(aqi>100 && aqi<=150){
-
+            gauge2.setPointStartColor(ContextCompat.getColor(getApplicationContext(),R.color.orange ));
+            gauge2.setPointEndColor(ContextCompat.getColor(getApplicationContext(),R.color.orange ));
         }else if(aqi>150 && aqi<=200){
-
+            gauge2.setPointStartColor(ContextCompat.getColor(getApplicationContext(),R.color.rouge ));
+            gauge2.setPointEndColor(ContextCompat.getColor(getApplicationContext(),R.color.rouge ));
         }else if(aqi>200 && aqi<=300){
-
+            gauge2.setPointStartColor(ContextCompat.getColor(getApplicationContext(),R.color.violet ));
+            gauge2.setPointEndColor(ContextCompat.getColor(getApplicationContext(),R.color.violet ));
         }else if(aqi>300 && aqi<=500){
-
+            gauge2.setPointStartColor(ContextCompat.getColor(getApplicationContext(),R.color.marron ));
+            gauge2.setPointEndColor(ContextCompat.getColor(getApplicationContext(),R.color.marron ));
         }
-
-
+        gauge2.setValue(aqi);
 
     }
 

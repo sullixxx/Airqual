@@ -67,9 +67,8 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
             @Override
             public void onClick(View v) {
 
-            //TODO aller dans l'activité de détails
             Intent intent = new Intent(v.getContext(), DetailActivity.class);
-             Bundle extras = new Bundle();
+            Bundle extras = new Bundle();
             extras.putString("city", content.getCity());
             extras.putString("state", stateofdataset);
             extras.putString("country", countryofdataset);
