@@ -1,4 +1,4 @@
-package com.esiea.planespotter;
+package com.esiea.airqual;
 
 import org.junit.Test;
 

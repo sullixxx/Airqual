@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Planespotter</string>
+    <string name="app_name">Airqual</string>
+    <string name="today_air_quality">Today Air Quality</string>
 </resources>
