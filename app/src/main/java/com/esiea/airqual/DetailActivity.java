@@ -75,6 +75,7 @@ public class DetailActivity extends Activity {
     private void showCityDetail() {
 
         CustomGauge gauge2 = findViewById(R.id.gauge2);
+        TextView title = (TextView)findViewById(R.id.textView);
         TextView aqius = (TextView)findViewById(R.id.tv_aqius);
         TextView temperature = (TextView)findViewById(R.id.tv_tp);
         TextView humidity = (TextView)findViewById(R.id.tv_hu);
@@ -87,6 +88,8 @@ public class DetailActivity extends Activity {
                 .load(url)
                 .fit().centerInside()
                 .into(imageView);
+
+        title.setText(title.getText()+" in "+selectedCity.getData().getCity());
 
         int aqi = selectedCity.getData().getCurrent().pollution.getAqius();
         aqius.setText(Integer.toString(aqi)+" / 500");
