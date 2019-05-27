@@ -53,6 +53,7 @@ public class DetailActivity extends Activity {
 
         Call<City> call = restApiAirVisual.getCityInfo(city,state,country,RestApiAirVisual.APIKEY);
 
+
         call.enqueue(new Callback<City>() {
             @Override
             public void onResponse(Call<City> call, Response<City> response) {
