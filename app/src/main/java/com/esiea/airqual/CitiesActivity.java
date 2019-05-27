@@ -1,12 +1,16 @@
 package com.esiea.airqual;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,6 +39,9 @@ public class CitiesActivity extends Activity {
         Intent intent = getIntent();
         state = intent.getStringExtra("state");
         country = retrieveCountry();
+        Toolbar title = findViewById(R.id.toolbar);
+        title.setTitle(state);
+        title.setTitleTextColor(Color.BLACK);
         downloadData();
 
     }
@@ -59,6 +66,9 @@ public class CitiesActivity extends Activity {
                 Cities citiesOfState = response.body();
                 if (citiesOfState != null) {
                     showList(citiesOfState.getListCities());
+                }
+                if (response.code()==400){
+                    Toast.makeText(getApplicationContext(), "No supported city in this state", Toast.LENGTH_LONG).show();
                 }
             }
 
