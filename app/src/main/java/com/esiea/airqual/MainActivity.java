@@ -3,11 +3,14 @@ package com.esiea.airqual;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -21,8 +24,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.support.design.widget.Snackbar;
 
-public class MainActivity extends Activity {
+
+public class MainActivity extends Activity implements ConnectivityReceiver.ConnectivityReceiverListener{
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -35,8 +40,17 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        checkConnection();
         downloadData();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // register connection status listener
+        MyApplication.getInstance().setConnectivityListener(this);
     }
 
     private void downloadData() {
@@ -110,6 +124,37 @@ public class MainActivity extends Activity {
         // définit l'adaptateur
         mAdapter = new StateAdapter(listToShow);
         recyclerView.setAdapter(mAdapter);
+    }
+
+
+    // Method to manually check connection status
+    private void checkConnection() {
+        boolean isConnected = ConnectivityReceiver.isConnected();
+        showSnack(isConnected);
+    }
+
+    // Showing the status in Snackbar
+    private void showSnack(boolean isConnected) {
+        String message;
+        int color = Color.WHITE;
+        if (isConnected) {
+            message = "connected";
+        } else {
+            message = "no internet connection";
+        }
+
+        Snackbar snackbar = Snackbar
+                .make(findViewById(R.id.my_recycler_view), message, Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(color);
+        snackbar.show();
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        showSnack(isConnected);
     }
 
 }

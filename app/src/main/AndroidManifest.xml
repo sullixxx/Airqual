@@ -9,6 +9,7 @@
 
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/pollen_launcher"
         android:label="@string/app_name"
@@ -22,9 +23,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name="com.esiea.airqual.CitiesActivity"></activity>
         <activity android:name="com.esiea.airqual.DetailActivity"></activity>
+        <receiver
+            android:name=".ConnectivityReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
