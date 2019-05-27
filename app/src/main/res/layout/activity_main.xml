@@ -12,7 +12,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="0dp"
         android:layout_marginBottom="-3dp"
         android:background="#F5F3F2F2"
         android:scrollbars="vertical" />
@@ -24,8 +24,27 @@
         android:background="@color/jauneToolbar"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:titleTextColor="#FFFFFFFF"
-        app:title="@string/app_name" />
+        app:logo="@mipmap/pollen_launcher_round"
+        app:title="@string/app_name"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:titleTextColor="#383737" />
 
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignBottom="@+id/my_recycler_view"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginStart="324dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="31dp"
+        android:backgroundTint="@color/jauneToolbar"
+        android:src="@android:drawable/ic_menu_myplaces"
+        app:backgroundTint="@color/jauneToolbar"
+        app:maxImageSize="30dp"
+        app:rippleColor="#00615F5F" />
 
 </RelativeLayout>

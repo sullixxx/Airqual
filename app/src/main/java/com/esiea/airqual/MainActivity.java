@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -43,6 +44,21 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
         checkConnection();
         downloadData();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), DetailActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString("city", nearestCity.getData().getCity());
+                extras.putString("state", nearestCity.getData().getState());
+                extras.putString("country", nearestCity.getData().getCountry());
+                intent.putExtras(extras);
+                v.getContext().startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -52,6 +68,9 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
         // register connection status listener
         MyApplication.getInstance().setConnectivityListener(this);
     }
+
+
+
 
     private void downloadData() {
 
