@@ -63,19 +63,17 @@ public class StateAdapter extends RecyclerView.Adapter<StateAdapter.ViewHolder> 
         // - replace the contents of the view with that element
         final State content = valuesStates.get(position);
         holder.txtHeader.setText(content.getState());
-        holder.txtHeader.setOnClickListener(new OnClickListener() {
+        holder.layout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                    Intent intent = new Intent(v.getContext(), CitiesActivity.class);
-                    intent.putExtra("state", content.getState());
-                    v.getContext().startActivity(intent);
+                Intent intent = new Intent(v.getContext(), CitiesActivity.class);
+                intent.putExtra("state", content.getState());
+                v.getContext().startActivity(intent);
 
                 notifyDataSetChanged();//notifier quand un élément est modifié
             }
         });
-
-
         holder.txtFooter.setText("Country: " + retrieveCountry(holder.layout.getContext()));
     }
 

@@ -63,7 +63,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
         // - replace the contents of the view with that element
         final City content = values.get(position);
         holder.txtHeader.setText(content.getCity());
-        holder.txtHeader.setOnClickListener(new OnClickListener() {
+        holder.layout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
