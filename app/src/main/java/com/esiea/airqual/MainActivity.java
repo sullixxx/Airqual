@@ -41,7 +41,7 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        checkConnection();
+        //checkConnection();
         downloadData();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
