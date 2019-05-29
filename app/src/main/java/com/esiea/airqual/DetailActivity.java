@@ -97,7 +97,8 @@ public class DetailActivity extends Activity {
         temperature.setText("TEMPERATURE : " + Integer.toString(selectedCity.getData().getCurrent().weather.getTp()) + "°");
         humidity.setText("HUMIDITY : " + Integer.toString(selectedCity.getData().getCurrent().weather.getHu()) + " %");
         pression.setText("PRESSION : " + Integer.toString(selectedCity.getData().getCurrent().weather.getPr()) + " hPa");
-        wind.setText("WIND : " + String.format ("%.2f", selectedCity.getData().getCurrent().weather.getWs()) + " m/s - " + Integer.toString(selectedCity.getData().getCurrent().weather.getWd())+"°");
+        double windSpeed = (selectedCity.getData().getCurrent().weather.getWs())*3.6;
+        wind.setText("WIND : " + String.format ("%.2f", windSpeed) + " Km/h - " + Integer.toString(selectedCity.getData().getCurrent().weather.getWd())+"°");
 
         if(aqi<=50){
             gauge2.setPointStartColor(ContextCompat.getColor(getApplicationContext(),R.color.vert ));

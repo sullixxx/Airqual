@@ -50,8 +50,8 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         registerBroadcastConnectivity();
-        //checkPermissionsStorage(); //ask Write external storage permission
-        checkConnection();
+        checkPermissionsStorage(); //ask user "Write external storage" permission
+        //checkConnection();
         downloadData();
 
 
