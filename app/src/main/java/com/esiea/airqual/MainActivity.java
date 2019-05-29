@@ -1,14 +1,18 @@
 package com.esiea.airqual;
 
+import android.Manifest;
 import android.content.Intent;
 
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,6 +50,7 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         registerBroadcastConnectivity();
+        //checkPermissionsStorage(); //ask Write external storage permission
         checkConnection();
         downloadData();
 
@@ -183,5 +188,17 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
 
     private void registerBroadcastConnectivity(){
         registerReceiver(new ConnectivityReceiver(),new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    private void checkPermissionsStorage(){
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    1);
+        }
+
     }
 }
