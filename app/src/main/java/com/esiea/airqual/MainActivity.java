@@ -2,11 +2,14 @@ package com.esiea.airqual;
 
 import android.content.Intent;
 
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -40,10 +43,12 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        //checkConnection();
-        downloadData();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        registerBroadcastConnectivity();
+        checkConnection();
+        downloadData();
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -64,9 +69,7 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
     @Override
     protected void onResume() {
         super.onResume();
-
-        // register connection status listener
-        MyApplication.getInstance().setConnectivityListener(this);
+        Airqual.getInstance().setConnectivityListener(this);
     }
 
 
@@ -149,7 +152,9 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
     // Method to manually check connection status
     private void checkConnection() {
         boolean isConnected = ConnectivityReceiver.isConnected();
-        showSnack(isConnected);
+        if(!isConnected) {
+            showSnack(isConnected);
+        }
     }
 
     // Showing the status in Snackbar
@@ -163,7 +168,7 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
         }
 
         Snackbar snackbar = Snackbar
-                .make(findViewById(R.id.my_recycler_view), message, Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.fab), message, Snackbar.LENGTH_LONG);
 
         View sbView = snackbar.getView();
         TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
@@ -176,4 +181,7 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
         showSnack(isConnected);
     }
 
+    private void registerBroadcastConnectivity(){
+        registerReceiver(new ConnectivityReceiver(),new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
 }

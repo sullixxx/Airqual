@@ -7,7 +7,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
@@ -15,7 +15,8 @@
         android:layout_marginTop="0dp"
         android:layout_marginBottom="-3dp"
         android:background="#F5F3F2F2"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:soundEffectsEnabled="false"/>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

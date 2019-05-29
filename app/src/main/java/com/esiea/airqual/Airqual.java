@@ -1,10 +1,11 @@
 package com.esiea.airqual;
 
 import android.app.Application;
+import android.content.BroadcastReceiver;
 
-public class MyApplication extends Application {
+public class Airqual extends Application {
 
-    private static MyApplication mInstance;
+    private static Airqual mInstance;
 
     @Override
     public void onCreate() {
@@ -13,7 +14,7 @@ public class MyApplication extends Application {
         mInstance = this;
     }
 
-    public static synchronized MyApplication getInstance() {
+    public static synchronized Airqual getInstance() {
         return mInstance;
     }
 
