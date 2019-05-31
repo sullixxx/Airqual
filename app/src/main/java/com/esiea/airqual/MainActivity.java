@@ -41,6 +41,7 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
     private RecyclerView.LayoutManager layoutManager;
     private City nearestCity;
     private RestApiAirVisual restApiAirVisual;
+    private Snackbar snackbar;
 
 
     @Override
@@ -51,6 +52,7 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         registerBroadcastConnectivity();
         checkPermissionsStorage(); //ask user "Write external storage" permission
+        createSnack();
         //checkConnection();
         downloadData();
 
@@ -164,21 +166,21 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
 
     // Showing the status in Snackbar
     private void showSnack(boolean isConnected) {
-        String message;
-        int color = Color.WHITE;
-        if (isConnected) {
-            message = "connected";
-        } else {
-            message = "no internet connection";
+        if (!isConnected) {
+            snackbar.show();
+        }else if(isConnected){
+            snackbar.dismiss();
         }
+    }
 
-        Snackbar snackbar = Snackbar
-                .make(findViewById(R.id.fab), message, Snackbar.LENGTH_LONG);
+    private void createSnack(){
+        String message = "no internet connection";
+        snackbar = Snackbar
+                .make(findViewById(R.id.fab), message, Snackbar.LENGTH_INDEFINITE);
 
         View sbView = snackbar.getView();
         TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(color);
-        snackbar.show();
+        textView.setTextColor(Color.WHITE);
     }
 
     @Override
