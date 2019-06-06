@@ -13,7 +13,7 @@ https://github.com/sullixxx/Airqual.git
 or
 ###
 -download apk file : 
-(Airqual.apk)
+[Airqual.apk](https://github.com/sullixxx/Airqual/blob/master/Airqual.apk)
 
 ## Course instructions : 
 
