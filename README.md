@@ -22,7 +22,7 @@ https://github.com/sullixxx/Airqual.git
 - saving the country in cache (sharedpreference)
 
 - Bonus features :
-	- animation between activities
+	- transition animation between activities
   - locating user on startup
   - display a snackbar on connection lost
   - gauge to display AQI (air quality index) and color change according to the value
