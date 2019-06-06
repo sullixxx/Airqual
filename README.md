@@ -6,7 +6,7 @@ It first locate your location whith your IP then you can choose a city to get wh
 ![](gifairqualinternet.gif)
 ## requirements
 - Install Android Studio
-- clone the develop branch from the repository<br/>
+- clone the master branch from the repository
 ````
 https://github.com/sullixxx/Airqual.git
 ````
