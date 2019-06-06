@@ -4,12 +4,16 @@ It first locate your location whith your IP then you can choose a city to get wh
 #
 ![](airqualgif1.gif)
 ![](gifairqualinternet.gif)
-## requirements
+## Installation requirements
 - Install Android Studio
 - clone the master branch from the repository
 ````
 https://github.com/sullixxx/Airqual.git
 ````
+or
+###
+-download apk file : 
+(Airqual.apk)
 
 ## Course instructions : 
 
