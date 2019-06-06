@@ -1,12 +1,19 @@
 package com.esiea.airqual;
 
+import android.Manifest;
 import android.content.Intent;
 
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -34,16 +41,21 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
     private RecyclerView.LayoutManager layoutManager;
     private City nearestCity;
     private RestApiAirVisual restApiAirVisual;
+    private Snackbar snackbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        registerBroadcastConnectivity();
+        checkPermissionsStorage(); //ask user "Write external storage" permission
+        createSnack();
         //checkConnection();
         downloadData();
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -64,9 +76,7 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
     @Override
     protected void onResume() {
         super.onResume();
-
-        // register connection status listener
-        MyApplication.getInstance().setConnectivityListener(this);
+        Airqual.getInstance().setConnectivityListener(this);
     }
 
 
@@ -149,26 +159,28 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
     // Method to manually check connection status
     private void checkConnection() {
         boolean isConnected = ConnectivityReceiver.isConnected();
-        showSnack(isConnected);
+        if(!isConnected) {
+            showSnack(isConnected);
+        }
     }
 
     // Showing the status in Snackbar
     private void showSnack(boolean isConnected) {
-        String message;
-        int color = Color.WHITE;
-        if (isConnected) {
-            message = "connected";
-        } else {
-            message = "no internet connection";
+        if (!isConnected) {
+            snackbar.show();
+        }else if(isConnected){
+            snackbar.dismiss();
         }
+    }
 
-        Snackbar snackbar = Snackbar
-                .make(findViewById(R.id.my_recycler_view), message, Snackbar.LENGTH_LONG);
+    private void createSnack(){
+        String message = "no internet connection";
+        snackbar = Snackbar
+                .make(findViewById(R.id.fab), message, Snackbar.LENGTH_INDEFINITE);
 
         View sbView = snackbar.getView();
         TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(color);
-        snackbar.show();
+        textView.setTextColor(Color.WHITE);
     }
 
     @Override
@@ -176,4 +188,19 @@ public class MainActivity extends Activity implements ConnectivityReceiver.Conne
         showSnack(isConnected);
     }
 
+    private void registerBroadcastConnectivity(){
+        registerReceiver(new ConnectivityReceiver(),new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    private void checkPermissionsStorage(){
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    1);
+        }
+
+    }
 }
