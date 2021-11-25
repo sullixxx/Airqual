@@ -2,7 +2,6 @@
 Simple Air Quality and weather android app, coded in Java.
 It first locate your location whith your IP then you can choose a city to get wheather.
 #
-![](airqualgif1.gif)
 ![](gifairqualinternet.gif)
 ## Installation requirements
 - Install Android Studio
@@ -18,7 +17,7 @@ or
 ## Course instructions : 
 
 - MVC Architecture
-- Appels REST
+- Appels API REST
 - screen : 3 activity
 - Display a list in a RecyclerView
 - Display the detail of an element in an other activity
